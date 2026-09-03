@@ -1,0 +1,32 @@
+name: Verify service manifest
+
+on:
+  push:
+    paths:
+      - "manifest/**"
+      - "public/**"
+      - "schema/**"
+      - "tool/service_manifest.py"
+      - ".github/workflows/verify-manifest.yml"
+  pull_request:
+    paths:
+      - "manifest/**"
+      - "public/**"
+      - "schema/**"
+      - "tool/service_manifest.py"
+      - ".github/workflows/verify-manifest.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Ed25519 signature and contract
+        run: |
+          python3 tool/service_manifest.py verify \
+            --manifest public/service-manifest.json \
+            --source manifest/service-manifest-source.json \
+            --public-keys public/service-manifest-public-keys.json

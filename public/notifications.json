@@ -1,0 +1,28 @@
+{
+  "signed": {
+    "schemaVersion": 1,
+    "sequence": 2,
+    "issuedAt": "2026-09-03T08:49:02Z",
+    "expiresAt": "2026-10-03T08:49:02Z",
+    "staleUntil": "2026-11-30T08:49:02Z",
+    "notifications": [
+      {
+        "id": "kinozal-restored",
+        "revision": 1,
+        "type": "service",
+        "title": "Kinozal снова доступен",
+        "message": "Поиск и открытие раздач Kinozal снова работают в VOXO.",
+        "publishedAt": "2026-09-03T08:49:02Z",
+        "expiresAt": "2026-09-10T08:49:02Z",
+        "platforms": [
+          "all"
+        ]
+      }
+    ]
+  },
+  "signature": {
+    "algorithm": "Ed25519",
+    "keyId": "notifications-2026-01",
+    "value": "FT-85VnYmGhPP_P1sgokC67T9o_3s3WpxiOvz_I0MOoY42E8v0lJHKClmpVVNyRWoQzuAMn-1s059YgfC8W0Bg"
+  }
+}

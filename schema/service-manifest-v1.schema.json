@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://voxo.app/schema/service-manifest-v1.schema.json",
+  "title": "VOXO service manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["signed", "signature"],
+  "properties": {
+    "signed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "sequence",
+        "issuedAt",
+        "expiresAt",
+        "staleUntil",
+        "routing",
+        "ingresses",
+        "routes",
+        "updateManifestUrl"
+      ],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "sequence": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 },
+        "issuedAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" },
+        "staleUntil": { "type": "string", "format": "date-time" },
+        "routing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "failurePolicy", "targets"],
+          "properties": {
+            "mode": { "const": "weighted-session" },
+            "failurePolicy": { "const": "retry-next" },
+            "targets": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 5,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["ingressId", "weight"],
+                "properties": {
+                  "ingressId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,31}$" },
+                  "weight": { "type": "integer", "minimum": 0, "maximum": 100 }
+                }
+              }
+            }
+          }
+        },
+        "ingresses": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "baseUrl"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,31}$" },
+              "baseUrl": { "type": "string", "format": "uri", "pattern": "^https://[^/?#]+/?$" }
+            }
+          }
+        },
+        "routes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tmdbApi", "tmdbImages", "backendApi", "legacyJackett"],
+          "properties": {
+            "tmdbApi": { "type": "string", "pattern": "^/" },
+            "tmdbImages": { "type": "string", "pattern": "^/.+/$" },
+            "backendApi": { "type": "string", "pattern": "^/" },
+            "legacyJackett": { "type": "string", "pattern": "^/" }
+          }
+        },
+        "updateManifestUrl": { "type": "string", "format": "uri", "pattern": "^https://" }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "keyId", "value"],
+      "properties": {
+        "algorithm": { "const": "Ed25519" },
+        "keyId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "value": { "type": "string", "pattern": "^[A-Za-z0-9_-]+$" }
+      }
+    }
+  }
+}
