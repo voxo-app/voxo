@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "sequence": 4,
-  "issuedAt": "2026-09-03T19:24:35Z",
-  "expiresAt": "2026-09-10T19:24:35Z",
-  "staleUntil": "2026-10-03T19:24:35Z",
+  "sequence": 5,
+  "issuedAt": "2026-09-04T07:39:29Z",
+  "expiresAt": "2026-09-11T07:39:29Z",
+  "staleUntil": "2026-10-03T07:39:29Z",
   "routing": {
     "mode": "weighted-session",
     "failurePolicy": "retry-next",
@@ -17,7 +17,7 @@
   "ingresses": [
     {
       "id": "edge-nl-1",
-      "baseUrl": "https://voxoapp.xyz"
+      "baseUrl": "https://voxoedge-nl-1.tailb34f9e.ts.net"
     }
   ],
   "routes": {
