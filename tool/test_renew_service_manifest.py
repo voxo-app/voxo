@@ -20,6 +20,11 @@ class RenewalTest(unittest.TestCase):
     def test_fresh_is_unchanged(self):
         self.assertIsNone(renewed(self.source, self.expiry - dt.timedelta(days=4)))
 
+    def test_manual_force_renews_fresh_manifest(self):
+        result = renewed(self.source, self.expiry - dt.timedelta(days=4), force=True)
+        self.assertEqual(result['sequence'], self.source['sequence'] + 1)
+        self.assertEqual(result['ingresses'], self.source['ingresses'])
+
     def test_due_and_expired_preserve_routes(self):
         for now in [self.expiry - dt.timedelta(days=3), self.expiry + dt.timedelta(days=20)]:
             before = copy.deepcopy(self.source)

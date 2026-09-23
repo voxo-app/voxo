@@ -14,8 +14,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 MUTABLE = {'sequence', 'issuedAt', 'expiresAt', 'staleUntil'}
 
 
-def renewed(source, now):
-    if manifest.utc(source['expiresAt']) - now > dt.timedelta(days=3):
+def renewed(source, now, force=False):
+    if not force and manifest.utc(source['expiresAt']) - now > dt.timedelta(days=3):
         return None
     result = copy.deepcopy(source)
     result['sequence'] += 1
@@ -26,14 +26,14 @@ def renewed(source, now):
     return result
 
 
-def renew(root, private_key):
+def renew(root, private_key, force=False):
     source = root / 'manifest/service-manifest-source.json'
     envelope = root / 'public/service-manifest.json'
     keys = root / 'public/service-manifest-public-keys.json'
     manifest.verify(SimpleNamespace(source=source, manifest=envelope,
                                     public_keys=keys, allow_expired=True))
     current = json.loads(source.read_text())
-    candidate = renewed(current, dt.datetime.now(dt.timezone.utc))
+    candidate = renewed(current, dt.datetime.now(dt.timezone.utc), force=force)
     if candidate is None:
         print('Manifest is fresh; no changes')
         return
@@ -54,5 +54,6 @@ def renew(root, private_key):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--private-key', type=pathlib.Path, required=True)
+    parser.add_argument('--force', action='store_true')
     args = parser.parse_args()
-    renew(ROOT, args.private_key)
+    renew(ROOT, args.private_key, force=args.force)

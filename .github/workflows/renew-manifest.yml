@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: '23 5 * * *'
   workflow_dispatch:
+    inputs:
+      force:
+        description: Renew even if fresh (verify signing and publication)
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -22,6 +27,7 @@ jobs:
         run: python3 -m unittest discover -s tool -p test_renew_service_manifest.py
       - name: Renew and verify signature
         env:
+          FORCE_RENEWAL: ${{ inputs.force || false }}
           MANIFEST_SIGNING_KEY: ${{ secrets.VOXO_MANIFEST_SIGNING_KEY }}
         run: |
           set -euo pipefail
@@ -31,16 +37,18 @@ jobs:
           chmod 600 "$key"
           printf '%s\n' "$MANIFEST_SIGNING_KEY" > "$key"
           unset MANIFEST_SIGNING_KEY
-          python3 tool/renew_service_manifest.py --private-key "$key"
+          args=()
+          if [ "$FORCE_RENEWAL" = true ]; then args+=(--force); fi
+          python3 tool/renew_service_manifest.py --private-key "$key" "${args[@]}"
           python3 tool/service_manifest.py verify --manifest public/service-manifest.json --source manifest/service-manifest-source.json --public-keys public/service-manifest-public-keys.json
       - name: Publish as voxo-app
         env:
           GH_TOKEN: ${{ secrets.VOXO_MANIFEST_PUSH_TOKEN }}
         run: |
           set -euo pipefail
-          if git diff --quiet; then exit 0; fi
           test -n "$GH_TOKEN"
           test "$(gh api user --jq .login)" = voxo-app
+          if git diff --quiet; then exit 0; fi
           git config user.name voxo-app
           git config user.email voxoapp@proton.me
           git add manifest/service-manifest-source.json public/service-manifest.json
