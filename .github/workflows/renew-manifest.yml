@@ -1,0 +1,70 @@
+name: Renew service manifest
+on:
+  schedule:
+    - cron: '23 5 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: service-manifest-publication
+  cancel-in-progress: false
+jobs:
+  renew:
+    if: github.repository == 'voxo-app/voxo' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Test renewal policy
+        run: python3 -m unittest discover -s tool -p test_renew_service_manifest.py
+      - name: Renew and verify signature
+        env:
+          MANIFEST_SIGNING_KEY: ${{ secrets.VOXO_MANIFEST_SIGNING_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$MANIFEST_SIGNING_KEY"
+          key=$(mktemp "$RUNNER_TEMP/manifest-key.XXXXXX")
+          trap 'rm -f "$key"' EXIT
+          chmod 600 "$key"
+          printf '%s\n' "$MANIFEST_SIGNING_KEY" > "$key"
+          unset MANIFEST_SIGNING_KEY
+          python3 tool/renew_service_manifest.py --private-key "$key"
+          python3 tool/service_manifest.py verify --manifest public/service-manifest.json --source manifest/service-manifest-source.json --public-keys public/service-manifest-public-keys.json
+      - name: Publish as voxo-app
+        env:
+          GH_TOKEN: ${{ secrets.VOXO_MANIFEST_PUSH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then exit 0; fi
+          test -n "$GH_TOKEN"
+          test "$(gh api user --jq .login)" = voxo-app
+          git config user.name voxo-app
+          git config user.email voxoapp@proton.me
+          git add manifest/service-manifest-source.json public/service-manifest.json
+          git commit -m 'Renew service manifest lifetime'
+          python3 - <<'PY'
+          import subprocess
+          fields = subprocess.check_output(['git', 'show', '-s', '--format=%an%n%ae%n%cn%n%ce', 'HEAD'], text=True).splitlines()
+          assert fields == ['voxo-app', 'voxoapp@proton.me'] * 2
+          changed = subprocess.check_output(['git', 'diff-tree', '--no-commit-id', '--name-only', '-r', 'HEAD'], text=True).splitlines()
+          assert set(changed) == {'manifest/service-manifest-source.json', 'public/service-manifest.json'}
+          PY
+          # No force/rebase: concurrent manual changes must fail this publication.
+          git -c credential.helper= -c 'credential.helper=!gh auth git-credential' push origin HEAD:main
+          gh api "repos/voxo-app/voxo/commits/$(git rev-parse HEAD)" > "$RUNNER_TEMP/manifest-commit.json"
+          gh api repos/voxo-app/voxo/contributors > "$RUNNER_TEMP/manifest-contributors.json"
+          python3 - <<'PY'
+          import json, os, pathlib
+          root = pathlib.Path(os.environ['RUNNER_TEMP'])
+          commit = json.loads((root / 'manifest-commit.json').read_text())
+          for role in ['author', 'committer']:
+              assert commit[role]['login'] == 'voxo-app'
+              assert commit['commit'][role]['name'] == 'voxo-app'
+              assert commit['commit'][role]['email'] == 'voxoapp@proton.me'
+          assert all(c['login'] == 'voxo-app' for c in json.loads((root / 'manifest-contributors.json').read_text()))
+          PY
+      - name: Verify anonymous public manifest
+        run: python3 tool/check_published_manifest.py

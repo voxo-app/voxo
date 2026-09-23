@@ -6,14 +6,14 @@ on:
       - "manifest/**"
       - "public/**"
       - "schema/**"
-      - "tool/service_manifest.py"
+      - "tool/*.py"
       - ".github/workflows/verify-manifest.yml"
   pull_request:
     paths:
       - "manifest/**"
       - "public/**"
       - "schema/**"
-      - "tool/service_manifest.py"
+      - "tool/*.py"
       - ".github/workflows/verify-manifest.yml"
 
 permissions:
@@ -24,6 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Test renewal policy
+        run: python3 -m unittest discover -s tool -p test_renew_service_manifest.py
       - name: Verify Ed25519 signature and contract
         run: |
           python3 tool/service_manifest.py verify \
