@@ -1,11 +1,23 @@
 {
   "signed": {
     "schemaVersion": 1,
-    "sequence": 2,
-    "issuedAt": "2026-09-03T08:49:02Z",
-    "expiresAt": "2026-10-03T08:49:02Z",
-    "staleUntil": "2026-11-30T08:49:02Z",
+    "sequence": 3,
+    "issuedAt": "2026-09-29T19:46:25Z",
+    "expiresAt": "2026-10-29T19:46:25Z",
+    "staleUntil": "2026-12-26T19:46:25Z",
     "notifications": [
+      {
+        "id": "edge-migration-20260929",
+        "revision": 1,
+        "type": "service",
+        "title": "Voxo Edge: переезд завершён",
+        "message": "Уважаемые пользователи! Voxo Edge перенесён на новый сервер.\n\nЗамеры задержки:\nHelsinki — 11,41 мс\nAmsterdam — 30,69 мс\nWarsaw — 33,14 мс\nLondon — 35,47 мс\nFrankfurt — 36,09 мс\nNuremberg — 37,47 мс\nParis — 38,40 мс\nMadrid — 53,92 мс\n\nЕсли VOXO ещё не подключился, перезапустите приложение. Задержка на вашем устройстве зависит от сети.",
+        "publishedAt": "2026-09-29T19:46:25Z",
+        "expiresAt": "2026-10-13T19:46:25Z",
+        "platforms": [
+          "all"
+        ]
+      },
       {
         "id": "kinozal-restored",
         "revision": 1,
@@ -23,6 +35,6 @@
   "signature": {
     "algorithm": "Ed25519",
     "keyId": "notifications-2026-01",
-    "value": "FT-85VnYmGhPP_P1sgokC67T9o_3s3WpxiOvz_I0MOoY42E8v0lJHKClmpVVNyRWoQzuAMn-1s059YgfC8W0Bg"
+    "value": "zDNUGoaRg7cjtcV4uzcOKcUikoE1TTy8UgZ97QsTQRPtJbKLSVjc41zCvrrbWtqAdK3nlDS6PCdnLuPNMWb6Bw"
   }
 }
