@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "sequence": 8,
-  "issuedAt": "2026-09-27T10:35:43Z",
-  "expiresAt": "2026-10-04T10:35:43Z",
-  "staleUntil": "2026-10-26T10:35:43Z",
+  "sequence": 9,
+  "issuedAt": "2026-09-29T19:35:04Z",
+  "expiresAt": "2026-10-06T19:35:04Z",
+  "staleUntil": "2026-10-28T19:35:04Z",
   "routing": {
     "mode": "weighted-session",
     "failurePolicy": "retry-next",
     "targets": [
       {
-        "ingressId": "edge-nl-1",
+        "ingressId": "edge-primary",
         "weight": 100
       }
     ]
   },
   "ingresses": [
     {
-      "id": "edge-nl-1",
-      "baseUrl": "https://voxoedge-nl-1.tailb34f9e.ts.net"
+      "id": "edge-primary",
+      "baseUrl": "https://voxoedge-de-1.tailb34f9e.ts.net"
     }
   ],
   "routes": {
