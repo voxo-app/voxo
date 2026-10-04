@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "sequence": 10,
-  "issuedAt": "2026-09-30T09:16:58Z",
-  "expiresAt": "2026-10-07T09:16:58Z",
-  "staleUntil": "2026-10-29T09:16:58Z",
+  "sequence": 11,
+  "issuedAt": "2026-10-04T11:08:53Z",
+  "expiresAt": "2026-10-11T11:08:53Z",
+  "staleUntil": "2026-11-02T11:08:53Z",
   "routing": {
     "mode": "weighted-session",
     "failurePolicy": "retry-next",
