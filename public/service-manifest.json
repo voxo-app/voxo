@@ -1,10 +1,10 @@
 {
   "signed": {
     "schemaVersion": 1,
-    "sequence": 18,
-    "issuedAt": "2026-11-03T12:50:49Z",
-    "expiresAt": "2026-11-10T12:50:49Z",
-    "staleUntil": "2026-12-02T12:50:49Z",
+    "sequence": 19,
+    "issuedAt": "2026-11-08T11:58:22Z",
+    "expiresAt": "2026-11-15T11:58:22Z",
+    "staleUntil": "2026-12-07T11:58:22Z",
     "routing": {
       "mode": "weighted-session",
       "failurePolicy": "retry-next",
@@ -32,6 +32,6 @@
   "signature": {
     "algorithm": "Ed25519",
     "keyId": "service-manifest-2026-01",
-    "value": "INzx43Q5aNIdHs03B-ZIFjfY-eoJYN7wqyGhYGJr_5qdwkpx6DE__CcfLwNgbc-0X1hr41dgbde8Jh-Cr2QfAQ"
+    "value": "74dEUWjrJtO6P-xFnxOXTi058yNDPxL5g8s9R95XNZzz-uwEuU191FLPPNnZegcDyzAysl2HCfi76zM954vDBw"
   }
 }
