@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "sequence": 21,
-  "issuedAt": "2026-11-17T14:33:18Z",
-  "expiresAt": "2026-11-24T14:33:18Z",
-  "staleUntil": "2026-12-16T14:33:18Z",
+  "sequence": 22,
+  "issuedAt": "2026-11-21T14:47:26Z",
+  "expiresAt": "2026-11-28T14:47:26Z",
+  "staleUntil": "2026-12-20T14:47:26Z",
   "routing": {
     "mode": "weighted-session",
     "failurePolicy": "retry-next",
@@ -17,7 +17,7 @@
   "ingresses": [
     {
       "id": "edge-primary",
-      "baseUrl": "https://voxoedge-de-2.tailb34f9e.ts.net"
+      "baseUrl": "https://api.voxoapp.xyz"
     }
   ],
   "routes": {

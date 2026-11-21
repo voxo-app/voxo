@@ -1,10 +1,10 @@
 {
   "signed": {
     "schemaVersion": 1,
-    "sequence": 21,
-    "issuedAt": "2026-11-17T14:33:18Z",
-    "expiresAt": "2026-11-24T14:33:18Z",
-    "staleUntil": "2026-12-16T14:33:18Z",
+    "sequence": 22,
+    "issuedAt": "2026-11-21T14:47:26Z",
+    "expiresAt": "2026-11-28T14:47:26Z",
+    "staleUntil": "2026-12-20T14:47:26Z",
     "routing": {
       "mode": "weighted-session",
       "failurePolicy": "retry-next",
@@ -18,7 +18,7 @@
     "ingresses": [
       {
         "id": "edge-primary",
-        "baseUrl": "https://voxoedge-de-2.tailb34f9e.ts.net"
+        "baseUrl": "https://api.voxoapp.xyz"
       }
     ],
     "routes": {
@@ -32,6 +32,6 @@
   "signature": {
     "algorithm": "Ed25519",
     "keyId": "service-manifest-2026-01",
-    "value": "5uvk-10AtN17CMdnH4FN860kjXMAocv06Qzn6t-xMum8bTQhaaZ2J74ReCiWTY4lGRUCHM5je90w6WhHe7ZwCQ"
+    "value": "bQ3KyX7UNkdUxnnLmUScVbJfuL2hBIWI0sOi5AQhGNFWLekd2amqZQGGxcJlQY-8FMhDyjJ4lgnm3f_3AUfqBg"
   }
 }
