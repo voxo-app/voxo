@@ -1,10 +1,10 @@
 {
   "signed": {
     "schemaVersion": 1,
-    "sequence": 22,
-    "issuedAt": "2026-11-21T14:47:26Z",
-    "expiresAt": "2026-11-28T14:47:26Z",
-    "staleUntil": "2026-12-20T14:47:26Z",
+    "sequence": 23,
+    "issuedAt": "2026-11-21T14:56:44Z",
+    "expiresAt": "2026-11-28T14:56:44Z",
+    "staleUntil": "2026-12-20T14:56:44Z",
     "routing": {
       "mode": "weighted-session",
       "failurePolicy": "retry-next",
@@ -12,6 +12,10 @@
         {
           "ingressId": "edge-primary",
           "weight": 100
+        },
+        {
+          "ingressId": "edge-funnel-reserve",
+          "weight": 0
         }
       ]
     },
@@ -19,6 +23,10 @@
       {
         "id": "edge-primary",
         "baseUrl": "https://api.voxoapp.xyz"
+      },
+      {
+        "id": "edge-funnel-reserve",
+        "baseUrl": "https://voxoedge-de-2.tailb34f9e.ts.net"
       }
     ],
     "routes": {
@@ -32,6 +40,6 @@
   "signature": {
     "algorithm": "Ed25519",
     "keyId": "service-manifest-2026-01",
-    "value": "bQ3KyX7UNkdUxnnLmUScVbJfuL2hBIWI0sOi5AQhGNFWLekd2amqZQGGxcJlQY-8FMhDyjJ4lgnm3f_3AUfqBg"
+    "value": "HJ2YHiIxjeEhtYfEP0FKJQD7z9-YfD8Qf9aCaVYfQD62Tdx7bwnwVcjF6BxW7tN_v_YKTYvbXaxMy9UzC7jgAw"
   }
 }
