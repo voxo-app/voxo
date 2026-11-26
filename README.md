@@ -8,7 +8,7 @@
 <p align="center">
   <a href="https://github.com/voxo-app/voxo/releases/latest/download/voxo-android-tv.apk"><strong>Скачать для Android TV</strong></a>
   &nbsp; · &nbsp;
-  <a href="https://github.com/voxo-app/voxo/releases/latest/download/voxo-android-mobile.apk"><strong>Скачать для Android</strong></a>
+  <a href="https://github.com/voxo-app/voxo/releases/latest/download/voxo-android-tv.apk"><strong>Скачать для Android</strong></a>
   &nbsp; · &nbsp;
   <a href="https://github.com/voxo-app/voxo/releases/latest">Что нового</a>
 </p>
@@ -67,9 +67,10 @@ VOXO объединяет каталог, поиск источников и п�
 | Устройство | Сборка |
 | --- | --- |
 | Android TV / Google TV, телевизоры и приставки | [voxo-android-tv.apk](https://github.com/voxo-app/voxo/releases/latest/download/voxo-android-tv.apk) |
-| Android-телефоны и планшеты | [voxo-android-mobile.apk](https://github.com/voxo-app/voxo/releases/latest/download/voxo-android-mobile.apk) |
+| Android-телефоны и планшеты, новая установка | [Универсальный APK](https://github.com/voxo-app/voxo/releases/latest/download/voxo-android-tv.apk) |
+| Установлен старый VOXO на телефоне или планшете | [Переходный APK](https://github.com/voxo-app/voxo/releases/latest/download/voxo-android-mobile.apk) |
 
-1. Скачайте APK для своего устройства. Опубликованные сборки предназначены для Android 7.0+ на ARM.
+1. Для новой установки скачайте универсальный APK. Опубликованные сборки предназначены для Android 7.0+ на ARM.
 2. Откройте APK и разрешите установку из выбранного источника, если Android попросит.
 3. Запустите VOXO и выберите фильм или сериал.
 
@@ -84,7 +85,7 @@ VOXO объединяет каталог, поиск источников и п�
 
 - Доступность видео, озвучек, качества и субтитров зависит от источника. Наличие карточки в каталоге не означает наличие видео для просмотра.
 - Избранное и история хранятся на устройстве; синхронизации между устройствами пока нет.
-- В текущем публичном релизе доступны Android TV и Android Mobile. Веб-версия и приложение для iPad пока не опубликованы.
+- Один универсальный APK подходит для Android TV, телефонов и планшетов. Веб-версия и приложение для iPad пока не опубликованы.
 
 Скриншоты сделаны на Android TV в VOXO 0.7.13, 19 октября 2026 года.
 
